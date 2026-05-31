@@ -22,7 +22,8 @@ The look (theme, colour, pattern, font, size, author) stays constant — it's th
 - **Base URL:** `https://cover.soumendrak.com/api` (override with `COVERVIEW_API`)
 - **Endpoint:** `POST /generate` (JSON) or `GET /generate` (query params)
 - **House style:** `assets/style.json` — the constant fields applied to every cover
-- **Per-cover inputs:** `title` (always different) and `icon` (always different)
+- **Per-cover inputs:** `title`, `icon`, a photo `keyword`, and the `author`
+  (the style supplies a default author; pass `--author` to set it per cover)
 
 ## Create a cover from a blog post
 
@@ -39,13 +40,15 @@ it never goes onto the image. The cover shows the title, an icon, and a photo.
    Kubernetes → `kubernetes`. If there's no single clear technology, fall back
    to a built-in concept icon (`code`, `terminal`, `database`, `ai`,
    `security`).
-3. **Photo keyword** — pick ONE concrete, photographable noun that captures the
+3. **Author** — use the author the user gives for the post; pass it with
+   `--author`. Only fall back to the style's default when none is provided.
+4. **Photo keyword** — pick ONE concrete, photographable noun that captures the
    post's theme for the Unsplash search. Prefer vivid, literal subjects over
    abstractions: a post about building a data *pipeline* → `pipeline` (or
    `pipes`); databases → `server room`; security → `padlock`; networking →
    `network cables`. Abstract words ("scalability", "architecture") return weak
    photos — translate them into something you can photograph.
-4. **Generate** the stylish cover (text panel left, keyword photo right):
+5. **Generate** the stylish cover (text panel left, keyword photo right):
 
 ```bash
 python3 scripts/generate_cover.py \
@@ -53,6 +56,7 @@ python3 scripts/generate_cover.py \
   --title $'Ch8.2: Building\nYour First OTel\nCollector Pipeline' \
   --icon opentelemetry \
   --keyword pipeline \
+  --author "Soumendra Kumar Sahoo" \
   --out cover.png
 ```
 
