@@ -108,16 +108,27 @@ function outline(c) {
   </div>`;
 }
 
-// ── stylish: text panel on the left, image on the right ─────────────────────
+// ── stylish: text panel on the left, image on the right (50/50 split) ───────
 function stylish(c) {
   const right = c.imageUrl
-    ? `<div style="display:flex;width:42%;height:100%;background-image:url(${c.imageUrl});background-size:cover;background-position:center"></div>`
-    : `<div style="display:flex;width:42%;height:100%;background:${c.accent}"></div>`;
+    ? `<div style="display:flex;width:50%;height:100%;background-image:url(${c.imageUrl});background-size:cover;background-position:center"></div>`
+    : `<div style="display:flex;width:50%;height:100%;background:${c.accent}"></div>`;
+  // Author row: icon first, then author (matches the web editor's StylishTheme).
+  const iconEl = c.iconHtml
+    ? `<div style="display:flex;align-items:center;justify-content:center">${c.iconHtml}</div>`
+    : "";
+  const authorEl = c.author
+    ? `<div style="display:flex;align-items:center"><span style="font-size:${c.authorSize}px;font-weight:700;opacity:0.9;color:${c.onBgText}">${esc(c.author)}</span></div>`
+    : "";
+  const authorRowEl =
+    iconEl || authorEl
+      ? `<div style="display:flex;align-items:center;gap:18px;position:relative;z-index:2">${iconEl}${authorEl}</div>`
+      : "";
   return `<div style="display:flex;width:${c.W}px;height:${c.H}px;${baseBg(c)};font-family:'${c.font}';position:relative;overflow:hidden;box-sizing:border-box">
     ${patternLayer(c.patternSvg)}
-    <div style="display:flex;flex-direction:column;justify-content:center;width:58%;height:100%;padding:${c.pad}px;box-sizing:border-box;position:relative;z-index:2;gap:20px">
+    <div style="display:flex;flex-direction:column;justify-content:center;width:50%;height:100%;padding:${c.pad}px;box-sizing:border-box;position:relative;z-index:2;gap:20px">
       ${titleBlock(c, c.onBgText, "100%")}
-      ${authorRow(c, c.onBgText, "flex-start")}
+      ${authorRowEl}
     </div>
     ${right}
   </div>`;
