@@ -181,6 +181,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [Hero Patterns](https://www.heropatterns.com/)
 - [Devicons](https://github.com/devicons/devicon)
 
-Don't forget to leave a ⭐ if you found this useful. Also checkout more products i built at [rutik.dev](https://rutik.dev)
+Don't forget to leave a ⭐ if you found this useful. Also checkout more products i built at [soumendrak.com](https://soumendrak.com)
 
 

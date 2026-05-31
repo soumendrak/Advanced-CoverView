@@ -42,7 +42,7 @@ const Faq = () => {
 
                     <div className="md:w-full lg:w-5/12 m-4">
                         <p className="text-xl font-bold my-2">Want to support/sponsor the project?</p>
-                        <p className="text-lg text-gray-700">If Advanced CoverView adds value in your life and you wish to support this project, you can <a href="https://github.com/sponsors/rutikwankhade" target="_blank" rel="noreferrer" className="font-semibold hover:underline">sponsor me on Github</a> or <a href="https://www.buymeacoffee.com/rutikwankhade" target="_blank" rel="noreferrer" className="hover:underline text-pink-400 font-semibold">buy me a coffee</a>.</p>
+                        <p className="text-lg text-gray-700">If Advanced CoverView adds value in your life and you wish to support this project, you can <a href="https://soumendrak.com" target="_blank" rel="noreferrer" className="font-semibold hover:underline">sponsor me on Github</a> or <a href="https://soumendrak.com" target="_blank" rel="noreferrer" className="hover:underline text-pink-400 font-semibold">buy me a coffee</a>.</p>
                     </div>
 
                 </div>

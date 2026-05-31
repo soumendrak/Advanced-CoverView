@@ -197,13 +197,13 @@ const Home = () => {
                     <footer className=" p-10 gap-2 flex md:flex-row flex-col-reverse font-Inter md:px-10 lg:px-20 md:justify-between justify-center mx-auto md:w-11/12 lg:w-10/12 w-full items-center">
 
                         <div className=" flex flex-col">
-                            <span className="md:text-lg text-sm">Made with 💛 by <a href="https://rutik.dev" className="font-semibold underline decoration-wavy underline-offset-4" target="_blank" rel="noreferrer">Rutik Wankhade</a></span>
+                            <span className="md:text-lg text-sm">Made with 💛 by <a href="https://soumendrak.com" className="font-semibold underline decoration-wavy underline-offset-4" target="_blank" rel="noreferrer">Soumendra Kumar Sahoo</a></span>
                         </div>
 
                         <div className="md:text-lg text-sm flex flex-wrap gap-4 ">
                             <Link to="/faq" className="hover:underline">How to use</Link>
                             <a href="https://github.com/soumendrak/Advanced-CoverView" target="_blank" rel="noreferrer" className="hover:underline">Github</a>
-                            <a href="https://www.buymeacoffee.com/rutikwankhade" target="_blank" rel="noreferrer" className="hover:underline">Buy me a coffee</a>
+                            <a href="https://soumendrak.com" target="_blank" rel="noreferrer" className="hover:underline">Buy me a coffee</a>
                         </div>
 
 
