@@ -27,6 +27,8 @@ Creating cover images for your blogs is now super easy.
 - 🌈 7 different themes, multiple fonts
 - 🌠 100+ dev icons with option to upload custom icon
 - 💾 Cover size based on blogging platform (i.e hashnode and dev)
+- 🔌 **HTTP API** — generate covers programmatically, no browser ([docs](#-http-api))
+- 🤖 **Agent skill** — let an AI agent build a cover from your title + blog post ([usage](#-agent-skill--generate-covers-from-a-blog-post))
 
 ## ✨ Advanced Features (New in Advanced CoverView)
 
@@ -52,7 +54,12 @@ Every feature of the editor is also available programmatically — no browser ne
 The API is a Cloudflare Pages Function served under `/api`, rendered with
 [Satori](https://github.com/vercel/satori) (via `workers-og`).
 
-- **Docs (Swagger UI):** https://cover.soumendrak.com/api/
+It supports all **7 layout themes** (including the `preview` browser mockup and
+`mobile` phone mockup), the full **devicon** icon library plus custom logo URLs,
+**18 background patterns**, single-`bgColor` palettes and presets, **Unsplash**
+keyword backgrounds, six fonts, **13 platform sizes**, and PNG or SVG output.
+
+- **Docs (Swagger UI, light/dark):** https://cover.soumendrak.com/api/
 - **OpenAPI spec:** https://cover.soumendrak.com/api/openapi.json
 
 ### Generate a cover
@@ -90,6 +97,61 @@ curl -X POST https://cover.soumendrak.com/api/generate \
 | `authorName` / `author` | Author name shown on the cover |
 | `format` | `png` (default) or `svg` |
 | `width` / `height` | Custom dimensions (override platform) |
+
+## 🤖 Agent Skill — generate covers from a blog post
+
+CoverView ships an [agent skill](https://skills.sh) at
+[`.agents/skills/coverview-cover/`](.agents/skills/coverview-cover) so AI coding
+agents (Claude Code, Cursor, Codex, …) can create covers for you. Give it a
+**title**, an **author**, and your **blog post text** — the skill reads the post
+only to *infer* a fitting icon and a photo keyword (the post text never appears
+on the image), balances the title across lines, and renders a cover via the API.
+
+> **Title, icon, photo keyword, and author are all per-cover variables.** The
+> look (theme, font, size) stays consistent via a small house-style preset.
+
+### Usage
+
+Point your agent at the skill and just describe the post. For example:
+
+> **Prompt given to the skill:**
+> *"Create a blog cover. Title: **Ship It Friday: Our Zero-Downtime Postgres
+> Migration**. Author: **Priya Sharma**. Here's the draft — we moved a 2 TB
+> production Postgres database to a new cluster with zero downtime using logical
+> replication, a shadow table, and a final cutover behind a feature flag…"*
+
+The skill inferred `postgres` (icon) and `data center` (photo keyword) from the
+post, kept the given author, wrapped the title over three lines, and ran:
+
+```bash
+python3 .agents/skills/coverview-cover/scripts/generate_cover.py \
+  --style .agents/skills/coverview-cover/assets/style-blog.json \
+  --title $'Ship It Friday:\nOur Zero-Downtime\nPostgres Migration' \
+  --icon postgres \
+  --keyword "data center" \
+  --author "Priya Sharma" \
+  --out cover.png
+```
+
+**What it generated:**
+
+<img src="./docs/example-api-cover.png" width="800px" alt="Generated CoverView cover">
+
+> The right-hand image comes from a live Unsplash keyword search, so every run
+> returns a different on-topic photo.
+
+### Install / customise
+
+Copy [`.agents/skills/coverview-cover/`](.agents/skills/coverview-cover) into
+your agent's skills directory. Two house-style presets ship with it:
+
+- `assets/style.json` — **basic** card on a solid colour with a pattern (title + icon).
+- `assets/style-blog.json` — **stylish** text panel with a keyword photo (the blog flow above).
+
+Edit a preset to re-brand every cover at once (default author, colour, font,
+platform). The skill's [`SKILL.md`](.agents/skills/coverview-cover/SKILL.md) and
+[`references/parameters.md`](.agents/skills/coverview-cover/references/parameters.md)
+document every option.
 
 ## 👩‍💻 Developing
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
