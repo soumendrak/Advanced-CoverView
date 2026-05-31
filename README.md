@@ -120,7 +120,7 @@ Point your agent at the skill and just describe the post. For example:
 > production Postgres database to a new cluster with zero downtime using logical
 > replication, a shadow table, and a final cutover behind a feature flag…"*
 
-The skill inferred `postgres` (icon) and `data center` (photo keyword) from the
+The skill inferred `postgres` (icon) and `server racks` (photo keyword) from the
 post, kept the given author, wrapped the title over three lines, and ran:
 
 ```bash
@@ -128,7 +128,7 @@ python3 .agents/skills/coverview-cover/scripts/generate_cover.py \
   --style .agents/skills/coverview-cover/assets/style-blog.json \
   --title $'Ship It Friday:\nOur Zero-Downtime\nPostgres Migration' \
   --icon postgres \
-  --keyword "data center" \
+  --keyword "server racks" \
   --author "Priya Sharma" \
   --out cover.png
 ```
