@@ -6,9 +6,11 @@ description: >-
   while the TITLE and ICON change every time. Use this whenever the user wants a
   cover, article header, social card, OG image, or thumbnail for a post — e.g.
   "make a cover for my post titled X with a React icon", "generate the Hashnode
-  cover for this article", or any mention of CoverView or cover art. Reach for
-  it even when the user just gives a title and a topic/logo without naming
-  CoverView.
+  cover for this article", or any mention of CoverView or cover art. Especially
+  use it when given a TITLE and the BLOG POST TEXT and asked to create a cover:
+  read the text to pick a fitting icon and a photo keyword, then produce a
+  stylish cover. Reach for it even when the user just gives a title and a
+  topic/logo without naming CoverView.
 ---
 
 # CoverView cover generator
@@ -21,6 +23,42 @@ The look (theme, colour, pattern, font, size, author) stays constant — it's th
 - **Endpoint:** `POST /generate` (JSON) or `GET /generate` (query params)
 - **House style:** `assets/style.json` — the constant fields applied to every cover
 - **Per-cover inputs:** `title` (always different) and `icon` (always different)
+
+## Create a cover from a blog post
+
+When you're given a **title** and the **blog post text** (or a draft/outline)
+and asked to make a cover, the post text is only *read to infer* two things —
+it never goes onto the image. The cover shows the title, an icon, and a photo.
+
+1. **Title** — keep the user's title verbatim. Add `\n` line breaks so it
+   balances over 2–3 short lines (split at natural phrase boundaries, not
+   mid-phrase). Engine auto-wrap is unreliable, so set the breaks yourself.
+2. **Icon** — pick the post's dominant technology and use its
+   [devicon](https://devicon.dev) name: e.g. a piece on the OpenTelemetry
+   Collector → `opentelemetry`; React → `react`; Postgres → `postgres`;
+   Kubernetes → `kubernetes`. If there's no single clear technology, fall back
+   to a built-in concept icon (`code`, `terminal`, `database`, `ai`,
+   `security`).
+3. **Photo keyword** — pick ONE concrete, photographable noun that captures the
+   post's theme for the Unsplash search. Prefer vivid, literal subjects over
+   abstractions: a post about building a data *pipeline* → `pipeline` (or
+   `pipes`); databases → `server room`; security → `padlock`; networking →
+   `network cables`. Abstract words ("scalability", "architecture") return weak
+   photos — translate them into something you can photograph.
+4. **Generate** the stylish cover (text panel left, keyword photo right):
+
+```bash
+python3 scripts/generate_cover.py \
+  --style assets/style-blog.json \
+  --title $'Ch8.2: Building\nYour First OTel\nCollector Pipeline' \
+  --icon opentelemetry \
+  --keyword pipeline \
+  --out cover.png
+```
+
+The photo comes from an Unsplash keyword *search*, so the exact image varies
+each run — that's expected. If the user wants one specific photo, generate a few
+and let them choose, or pass that photo's URL as `imageUrl` in the body instead.
 
 ## Generate a cover (the common path)
 
@@ -77,7 +115,13 @@ python3 scripts/generate_cover.py \
 
 Edit this file to re-brand every future cover at once — change the colour,
 pattern, theme, platform size, or default author. The script merges
-`{ "title": ..., "icon": ... }` on top of it per call.
+`{ "title": ..., "icon": ..., "unsplashQuery": ... }` on top of it per call.
+
+Two presets ship with the skill (pass either via `--style`):
+- `assets/style.json` — **basic** card on cyan with the `temple` pattern
+  (title + icon, no photo). Good when there's no blog text to mine for a photo.
+- `assets/style-blog.json` — **stylish** white text panel with a keyword photo
+  on the right. The default for the "from a blog post" flow above.
 
 ## Without the script (raw API)
 

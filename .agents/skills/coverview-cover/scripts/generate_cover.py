@@ -20,14 +20,22 @@ DEFAULT_API = "https://cover.soumendrak.com/api"
 DEFAULT_STYLE = Path(__file__).resolve().parent.parent / "assets" / "style.json"
 
 
-def build_body(style: dict, title: str, icon: str | None, author: str | None) -> dict:
+def build_body(
+    style: dict,
+    title: str,
+    icon: str | None,
+    author: str | None,
+    keyword: str | None,
+) -> dict:
     """Overlay the per-cover fields onto the constant house style.
 
     Args:
-        style: The base style dict loaded from style.json.
+        style: The base style dict loaded from a style JSON file.
         title: Cover title; real newlines force exact line wrapping.
         icon: Icon name (built-in or any devicon name), or None.
         author: Author override, or None to keep the style's default.
+        keyword: Unsplash search keyword for the background photo (used by the
+            ``stylish`` and ``background`` themes), or None.
 
     Returns:
         The request body for ``POST /generate``.
@@ -38,6 +46,8 @@ def build_body(style: dict, title: str, icon: str | None, author: str | None) ->
         body["icon"] = icon
     if author:
         body["authorName"] = author
+    if keyword:
+        body["unsplashQuery"] = keyword
     return body
 
 
@@ -66,6 +76,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generate a CoverView cover image.")
     parser.add_argument("--title", required=True, help=r"Cover title; use \n for line breaks")
     parser.add_argument("--icon", help="Icon name (built-in or any devicon name, e.g. react, tensorflow)")
+    parser.add_argument("--keyword", help="Unsplash search keyword for the background photo (stylish/background themes)")
     parser.add_argument("--author", help="Override the author name from the style")
     parser.add_argument("--style", type=Path, default=DEFAULT_STYLE, help="House-style JSON (default: assets/style.json)")
     parser.add_argument("--out", type=Path, default=Path("cover.png"), help="Output image path")
@@ -75,7 +86,7 @@ def main() -> None:
     style = json.loads(args.style.read_text())
     # Allow a literal "\n" typed on the command line to mean a real line break.
     title = args.title.replace("\\n", "\n")
-    body = build_body(style, title, args.icon, args.author)
+    body = build_body(style, title, args.icon, args.author, args.keyword)
     generate(body, args.api, args.out)
 
 
