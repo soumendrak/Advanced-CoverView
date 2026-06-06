@@ -5,7 +5,7 @@ Creating cover images for your blogs is now super easy.
 <p>
 <a href="https://github.com/soumendrak/Advanced-CoverView"><img src="https://img.shields.io/github/stars/soumendrak/Advanced-CoverView.svg?style=social&label=Star"></a>
 <a href="https://github.com/soumendrak/Advanced-CoverView"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a>
-<a href="https://lbesson.mit-license.org"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 
 
 
