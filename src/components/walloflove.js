@@ -16,7 +16,7 @@ const WallOfLove = () => {
         frame.setAttribute('src', "https://widget.senja.io/widget/902012ea-9b49-433a-96df-5cb43fd9a648");
         document.body.appendChild(script);
 
-    })
+    }, [])
 
 
     return (
