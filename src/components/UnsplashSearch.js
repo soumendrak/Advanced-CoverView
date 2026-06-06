@@ -115,7 +115,7 @@ const UnsplashSearch = ({ largeImgPreview }) => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
 
-                        <button type="submit" onClick={() => searchImages(searchQuery)}>
+                        <button type="submit">
                             <svg className="w-9 h-9 ml-auto  p-2 bg-gray-700 hover:bg-gray-800 text-white rounded-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </button>
                     </form>
