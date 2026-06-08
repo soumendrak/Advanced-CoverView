@@ -17,7 +17,7 @@ const SKILL_NAME = "coverview-cover";
 const bundledSkill = path.resolve(__dirname, "..", "skill");
 
 function parseArgs(argv) {
-  const opts = { force: false, target: null, dir: null, help: false };
+  const opts = { force: false, target: null, dir: null, help: false, invalid: false };
   for (const arg of argv) {
     switch (arg) {
       case "-h":
@@ -39,10 +39,16 @@ function parseArgs(argv) {
         break;
       default:
         if (arg.startsWith("--dir=")) {
-          opts.dir = arg.slice("--dir=".length);
+          const value = arg.slice("--dir=".length);
+          if (!value) {
+            console.error("Error: --dir= requires a non-empty path\n");
+            opts.invalid = true;
+          } else {
+            opts.dir = value;
+          }
         } else {
           console.error(`Unknown option: ${arg}\n`);
-          opts.help = true;
+          opts.invalid = true;
         }
     }
   }
@@ -96,6 +102,10 @@ function relativeFromCwd(p) {
 
 function main() {
   const opts = parseArgs(process.argv.slice(2));
+  if (opts.invalid) {
+    usage();
+    process.exit(1);
+  }
   if (opts.help) {
     usage();
     return;
