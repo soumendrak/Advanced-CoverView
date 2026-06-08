@@ -1,0 +1,4 @@
+# Synced from the canonical skill at pack/publish time — not committed here.
+/skill/
+node_modules/
+*.tgz

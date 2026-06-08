@@ -142,8 +142,17 @@ python3 .agents/skills/coverview-cover/scripts/generate_cover.py \
 
 ### Install / customise
 
-Copy [`.agents/skills/coverview-cover/`](.agents/skills/coverview-cover) into
-your agent's skills directory. Two house-style presets ship with it:
+The quickest way is the [`coverview-skill`](skill-installer) npx installer — run
+it from the root of your blog or app repo and it copies the skill into your
+project's skills directory:
+
+```bash
+npx coverview-skill            # auto-detects ./.claude or ./.agents
+npx coverview-skill --global   # install for every project (~/.claude/skills)
+```
+
+Or copy [`.agents/skills/coverview-cover/`](.agents/skills/coverview-cover) into
+your agent's skills directory by hand. Two house-style presets ship with it:
 
 - `assets/style.json` — **basic** card on a solid colour with a pattern (title + icon).
 - `assets/style-blog.json` — **stylish** text panel with a keyword photo (the blog flow above).
