@@ -1,0 +1,37 @@
+{
+  "name": "coverview-skill",
+  "version": "0.1.0",
+  "description": "Install the CoverView cover-image agent skill into any repo so your coding agent can generate blog/social cover images.",
+  "bin": {
+    "coverview-skill": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "skill/",
+    "README.md"
+  ],
+  "scripts": {
+    "sync": "node scripts/sync-skill.js",
+    "prepack": "node scripts/sync-skill.js",
+    "prepublishOnly": "node scripts/sync-skill.js"
+  },
+  "keywords": [
+    "coverview",
+    "agent-skill",
+    "claude",
+    "cover-image",
+    "og-image",
+    "blog",
+    "skill"
+  ],
+  "license": "MIT",
+  "homepage": "https://cover.soumendrak.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soumendrak/CoverView.git",
+    "directory": "skill-installer"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
