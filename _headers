@@ -3,3 +3,11 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Never cache the service worker so clients pick up new versions immediately.
+/service-worker.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /
+
+/manifest.json
+  Cache-Control: no-cache
