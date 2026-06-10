@@ -79,6 +79,7 @@ document every option.
 - 🌈 7 different themes, multiple fonts
 - 🌠 100+ dev icons, with the option to upload a custom icon
 - 💾 Cover sizes per blogging platform (Hashnode, Dev.to, and more)
+- 📥 **Export in multiple formats** — download covers as PNG, JPEG, WebP, or SVG
 - 📱 **Installable PWA** — add it to your device and keep creating covers offline
 - 🔌 **HTTP API** — generate covers programmatically, no browser ([docs](#-http-api))
 - 🤖 **Agent skill** — let an AI agent build a cover from your title + blog post ([above](#-generate-covers-from-your-editor--npx-coverview-skill))
