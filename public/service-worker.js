@@ -3,10 +3,10 @@
 /*
  * Custom service worker for Advanced CoverView.
  *
- * Create React App (react-scripts 5) emits content-hashed asset filenames, so a
- * static precache list can't be authored ahead of time without ejecting. Instead
- * this worker precaches the stable app shell and caches hashed build assets at
- * runtime, which makes the app installable and usable offline.
+ * Vite emits content-hashed asset filenames, so a static precache list can't be
+ * authored ahead of time. Instead this worker precaches the stable app shell and
+ * caches hashed build assets at runtime, which makes the app installable and
+ * usable offline.
  */
 
 const CACHE_VERSION = "v1";
