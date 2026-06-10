@@ -16,7 +16,7 @@ const PHOTO_THEMES = new Set(["background", "stylish"]);
 const IMAGE_THEMES = new Set(["background", "stylish", "preview", "mobile"]);
 
 async function unsplashImage(query, env, targetW) {
-  const key = env.UNSPLASH_ACCESS_KEY || env.REACT_APP_API_ACCESS_KEY;
+  const key = env.UNSPLASH_ACCESS_KEY || env.VITE_API_ACCESS_KEY;
   if (!query || !key) return null;
   try {
     const r = await fetch(

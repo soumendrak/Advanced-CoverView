@@ -15,18 +15,19 @@ const isLocalhost = Boolean(
 );
 
 export function register() {
-  if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) {
+  if (!import.meta.env.PROD || !("serviceWorker" in navigator)) {
     return;
   }
 
-  // The service worker won't work if PUBLIC_URL is on a different origin.
-  const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+  // The service worker won't work if the base URL is on a different origin.
+  const publicUrl = new URL(import.meta.env.BASE_URL, window.location.href);
   if (publicUrl.origin !== window.location.origin) {
     return;
   }
 
   window.addEventListener("load", () => {
-    const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+    // BASE_URL always ends with a trailing slash (defaults to "/").
+    const swUrl = `${import.meta.env.BASE_URL}service-worker.js`;
 
     if (isLocalhost) {
       checkValidServiceWorker(swUrl);
