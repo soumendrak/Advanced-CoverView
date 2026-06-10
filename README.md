@@ -151,13 +151,23 @@ curl -X POST https://cover.soumendrak.com/api/generate \
 
 ## 👩‍💻 Developing
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is built with [Vite](https://vite.dev/).
 
 ```shell
 git clone https://github.com/soumendrak/Advanced-CoverView.git
 cd Advanced-CoverView/
-npm start
+npm install
+npm run dev
 ```
+
+Other scripts:
+
+- `npm run build` — production build (output in `build/`)
+- `npm run preview` — preview the production build locally
+
+Environment variables are read via Vite, so they must be prefixed with
+`VITE_` (e.g. `VITE_API_ACCESS_KEY`). Copy `.env.example` to `.env` and fill
+in your keys.
 
 ## 👇 Contributing
 
