@@ -1,57 +1,104 @@
+<h1 align="center">Advanced CoverView</h1>
 
+<p align="center">Create beautiful cover images for your blogs and social posts — in seconds.</p>
 
-## Advanced CoverView
-Creating cover images for your blogs is now super easy.
-<p>
-<a href="https://github.com/soumendrak/Advanced-CoverView"><img src="https://img.shields.io/github/stars/soumendrak/Advanced-CoverView.svg?style=social&label=Star"></a>
-<a href="https://github.com/soumendrak/Advanced-CoverView"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a>
-<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
-
-
-
+<p align="center">
+  <a href="https://github.com/soumendrak/Advanced-CoverView"><img src="https://img.shields.io/github/stars/soumendrak/Advanced-CoverView.svg?style=social&label=Star"></a>
+  <a href="https://github.com/soumendrak/Advanced-CoverView"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
 
+<p align="center">
+  <img src="./docs/acv-screenshot.webp" width="800" alt="CoverView editor screenshot">
+</p>
 
+---
 
+## 🤖 Generate covers from your editor — `npx coverview-skill`
 
-<img src="./docs/acv-screenshot.webp" height="auto" width="800px"  margin="20px">
+The fastest way to use CoverView is to let your AI coding agent (Claude Code,
+Cursor, Codex, …) build covers for you. One command installs the
+[agent skill](https://skills.sh) into your repo:
 
+```bash
+npx coverview-skill            # auto-detects ./.claude or ./.agents
+npx coverview-skill --global   # install for every project (~/.claude/skills)
+```
 
+Then just describe your post to your agent:
 
- 
+> *"Create a blog cover. Title: **Ship It Friday: Our Zero-Downtime Postgres
+> Migration**. Author: **Priya Sharma**. Here's the draft — we moved a 2 TB
+> production Postgres database to a new cluster with zero downtime using logical
+> replication, a shadow table, and a final cutover behind a feature flag…"*
 
+The skill reads the post **only to infer** a fitting icon and photo keyword (the
+post text never appears on the image), balances the title across lines, keeps
+your author, and renders the cover via the API:
+
+```bash
+python3 .agents/skills/coverview-cover/scripts/generate_cover.py \
+  --style .agents/skills/coverview-cover/assets/style-blog.json \
+  --title $'Ship It Friday:\nOur Zero-Downtime\nPostgres Migration' \
+  --icon postgres \
+  --keyword "server racks" \
+  --author "Priya Sharma" \
+  --out cover.png
+```
+
+**What it generated:**
+
+<p align="center">
+  <img src="./docs/example-api-cover.png" width="800" alt="Generated CoverView cover">
+</p>
+
+> The right-hand image comes from a live Unsplash keyword search, so every run
+> returns a different on-topic photo.
+
+### Customising the skill
+
+Two house-style presets ship with it — edit one to re-brand every cover at once
+(default author, colour, font, platform):
+
+- `assets/style.json` — **basic** card on a solid colour with a pattern (title + icon).
+- `assets/style-blog.json` — **stylish** text panel with a keyword photo (the blog flow above).
+
+Prefer to install by hand? Copy
+[`.agents/skills/coverview-cover/`](.agents/skills/coverview-cover) into your
+agent's skills directory. The skill's
+[`SKILL.md`](.agents/skills/coverview-cover/SKILL.md) and
+[`references/parameters.md`](.agents/skills/coverview-cover/references/parameters.md)
+document every option.
+
+---
 
 ## ⚡ Features
-- 🚀 super fast and easy to use
-- ✨ unsplash integration to search images
+
+- 🚀 Super fast and easy to use
+- ✨ Unsplash integration to search images
 - 🌈 7 different themes, multiple fonts
-- 🌠 100+ dev icons with option to upload custom icon
-- 💾 Cover size based on blogging platform (i.e hashnode and dev)
+- 🌠 100+ dev icons, with the option to upload a custom icon
+- 💾 Cover sizes per blogging platform (Hashnode, Dev.to, and more)
 - 🔌 **HTTP API** — generate covers programmatically, no browser ([docs](#-http-api))
-- 🤖 **Agent skill** — let an AI agent build a cover from your title + blog post ([usage](#-agent-skill--generate-covers-from-a-blog-post))
+- 🤖 **Agent skill** — let an AI agent build a cover from your title + blog post ([above](#-generate-covers-from-your-editor--npx-coverview-skill))
 
-## ✨ Advanced Features (New in Advanced CoverView)
+### 🎨 Enhanced customization
+- **Platform presets** — pre-configured dimensions for Hashnode, Dev.to, Medium, LinkedIn, Twitter, Facebook, YouTube, and custom sizes
+- **Pattern backgrounds** — 16 SVG pattern options (graph-paper, jigsaw, dots, circuit-board, and more)
+- **Color preset swatches** — quick color selection with a collapsible palette
 
-### 🎨 Enhanced Customization
-- **Platform Presets** - Pre-configured dimensions for Hashnode, Dev.to, Medium, LinkedIn, Twitter, Facebook, YouTube, and Custom sizes
-- **Pattern Backgrounds** - 16 SVG pattern options (graph-paper, jigsaw, dots, circuit-board, and more)
-- **Color Preset Swatches** - Quick color selection with collapsible palette
+### 🖼️ Enhanced Unsplash integration
+- **Pagination** — a "Load More Images" button to browse beyond the initial 30 results
+- **Search persistence** — search term preserved when selecting/deselecting images
+- **Scroll memory** — returns to your exact scroll position after closing a selected image
+- **State caching** — all loaded images cached to avoid re-fetching
 
-### 🖼️ Enhanced Unsplash Integration
-- **Pagination Support** - "Load More Images" button to browse beyond initial 30 results
-- **Search Query Persistence** - Search term preserved when selecting/deselecting images
-- **Scroll Position Memory** - Returns to exact scroll position after closing selected image
-- **State Caching** - All loaded images cached to avoid re-fetching
-
-### 🐛 Bug Fixes & UX Improvements
-- Fixed dropdown overflow issues in sidebar
-- Smooth scroll restoration without visual flicker
-- Reset scroll to top on new search
+---
 
 ## 🔌 HTTP API
 
-Every feature of the editor is also available programmatically — no browser needed.
-The API is a Cloudflare Pages Function served under `/api`, rendered with
+Every feature of the editor is also available programmatically — no browser
+needed. The API is a Cloudflare Pages Function served under `/api`, rendered with
 [Satori](https://github.com/vercel/satori) (via `workers-og`).
 
 It supports all **7 layout themes** (including the `preview` browser mockup and
@@ -64,7 +111,8 @@ keyword backgrounds, six fonts, **13 platform sizes**, and PNG or SVG output.
 
 ### Generate a cover
 
-`GET /api/generate` (query params) or `POST /api/generate` (JSON body). `title` is required.
+`GET /api/generate` (query params) or `POST /api/generate` (JSON body). `title`
+is required.
 
 ```bash
 # Quick GET
@@ -98,74 +146,11 @@ curl -X POST https://cover.soumendrak.com/api/generate \
 | `format` | `png` (default) or `svg` |
 | `width` / `height` | Custom dimensions (override platform) |
 
-## 🤖 Agent Skill — generate covers from a blog post
-
-CoverView ships an [agent skill](https://skills.sh) at
-[`.agents/skills/coverview-cover/`](.agents/skills/coverview-cover) so AI coding
-agents (Claude Code, Cursor, Codex, …) can create covers for you. Give it a
-**title**, an **author**, and your **blog post text** — the skill reads the post
-only to *infer* a fitting icon and a photo keyword (the post text never appears
-on the image), balances the title across lines, and renders a cover via the API.
-
-> **Title, icon, photo keyword, and author are all per-cover variables.** The
-> look (theme, font, size) stays consistent via a small house-style preset.
-
-### Usage
-
-Point your agent at the skill and just describe the post. For example:
-
-> **Prompt given to the skill:**
-> *"Create a blog cover. Title: **Ship It Friday: Our Zero-Downtime Postgres
-> Migration**. Author: **Priya Sharma**. Here's the draft — we moved a 2 TB
-> production Postgres database to a new cluster with zero downtime using logical
-> replication, a shadow table, and a final cutover behind a feature flag…"*
-
-The skill inferred `postgres` (icon) and `server racks` (photo keyword) from the
-post, kept the given author, wrapped the title over three lines, and ran:
-
-```bash
-python3 .agents/skills/coverview-cover/scripts/generate_cover.py \
-  --style .agents/skills/coverview-cover/assets/style-blog.json \
-  --title $'Ship It Friday:\nOur Zero-Downtime\nPostgres Migration' \
-  --icon postgres \
-  --keyword "server racks" \
-  --author "Priya Sharma" \
-  --out cover.png
-```
-
-**What it generated:**
-
-<img src="./docs/example-api-cover.png" width="800px" alt="Generated CoverView cover">
-
-> The right-hand image comes from a live Unsplash keyword search, so every run
-> returns a different on-topic photo.
-
-### Install / customise
-
-The quickest way is the [`coverview-skill`](skill-installer) npx installer — run
-it from the root of your blog or app repo and it copies the skill into your
-project's skills directory:
-
-```bash
-npx coverview-skill            # auto-detects ./.claude or ./.agents
-npx coverview-skill --global   # install for every project (~/.claude/skills)
-```
-
-Or copy [`.agents/skills/coverview-cover/`](.agents/skills/coverview-cover) into
-your agent's skills directory by hand. Two house-style presets ship with it:
-
-- `assets/style.json` — **basic** card on a solid colour with a pattern (title + icon).
-- `assets/style-blog.json` — **stylish** text panel with a keyword photo (the blog flow above).
-
-Edit a preset to re-brand every cover at once (default author, colour, font,
-platform). The skill's [`SKILL.md`](.agents/skills/coverview-cover/SKILL.md) and
-[`references/parameters.md`](.agents/skills/coverview-cover/references/parameters.md)
-document every option.
+---
 
 ## 👩‍💻 Developing
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
 
 ```shell
 git clone https://github.com/soumendrak/Advanced-CoverView.git
@@ -173,10 +158,10 @@ cd Advanced-CoverView/
 npm start
 ```
 
-
 ## 👇 Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+Pull requests are welcome. For major changes, please open an issue first to
+discuss what you would like to change.
 
 1. Fork it (<https://github.com/soumendrak/Advanced-CoverView/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
@@ -184,12 +169,15 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
 
-
 ## 🙏 Acknowledgments
+
 - [dom-to-image](https://github.com/tsayen/dom-to-image)
 - [Hero Patterns](https://www.heropatterns.com/)
 - [Devicons](https://github.com/devicons/devicon)
 
-Don't forget to leave a ⭐ if you found this useful. Also checkout more products i built at [soumendrak.com](https://soumendrak.com)
+---
 
-
+<p align="center">
+  Don't forget to leave a ⭐ if you found this useful!<br>
+  Also check out more products I built at <a href="https://soumendrak.com">soumendrak.com</a>.
+</p>
