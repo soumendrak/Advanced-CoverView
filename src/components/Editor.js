@@ -8,6 +8,7 @@ import Header from "./Header";
 
 
 import { THEMES, PLATFORMS } from "../utils/constants";
+import { DOWNLOAD_FORMATS } from "../utils/imageExporter";
 
 const defaultSettings = {
 	title: "Your Title Goes Here",
@@ -250,6 +251,18 @@ class Editor extends React.Component {
 												</div>
 											)}
 
+											<div className="flex flex-col m-2">
+												<span className="font-medium text-sm pb-1">Download As</span>
+												<select
+													value={this.state.download}
+													onChange={(e) => this.setState({ download: e.target.value })}
+													className="focus:outline-none text-gray-700 text-lg p-2 rounded border w-full">
+													{DOWNLOAD_FORMATS.map((format) => (
+														<option key={format} value={format}>{format}</option>
+													))}
+												</select>
+											</div>
+
 											<button
 												className="flex items-center bg-gray-700 hover:bg-gray-800 text-white rounded-lg mt-6 text-base  p-1 px-4 mx-auto border"
 												onClick={this.handleReset}>
@@ -266,16 +279,6 @@ class Editor extends React.Component {
 								</div>
 							</div>
 
-
-							{/* <div className="mx-4 my-1">
-						<h6>Download As</h6>
-						<select onChange={(e) => this.setState({ download: e.target.value })}
-							className="form-control input"
-							value={this.state.download}>
-							<option>PNG</option>
-							<option>JPEG</option>
-						</select>
-					</div> */}
 
 						</div>
 

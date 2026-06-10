@@ -3,7 +3,8 @@ import React, { useContext, useState, useRef } from "react";
 import "./CoverImage.css";
 import { ImgContext } from "../utils/ImgContext";
 import unsplash from "../utils/unsplashConfig";
-import { toPng, toBlob } from "html-to-image";
+import { toBlob } from "html-to-image";
+import { generateImageDataUrl, getFormatConfig } from "../utils/imageExporter";
 
 const ComponentToImg = (props) => {
 
@@ -19,10 +20,10 @@ const ComponentToImg = (props) => {
 
 
 
-	async function saveImage(data) {
+	async function saveImage(data, extension) {
 		const a = document.createElement("a");
 		a.href = data;
-		a.download = `cover.png`;
+		a.download = `cover.${extension}`;
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
@@ -45,9 +46,11 @@ const ComponentToImg = (props) => {
 			setLoading(true)
 
 			const element = componentRef.current;
-			const data = await toPng(componentRef.current, getImageOptions(element))
+			const format = props.downloadAs || "PNG";
+			const { extension } = getFormatConfig(format);
+			const data = await generateImageDataUrl(element, format, getImageOptions(element))
 
-			await saveImage(data);
+			await saveImage(data, extension);
 
 			if (unsplashImage) {
 				unsplash.photos.trackDownload({ downloadLocation: unsplashImage.downloadLink, });
