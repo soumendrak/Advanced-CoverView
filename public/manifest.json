@@ -1,5 +1,5 @@
 {
-  "short_name": "CoverView",
+  "short_name": "Advanced CoverView",
   "name": "Advanced CoverView",
   "description": "Create beautiful cover images for your blogs quickly and easily — works offline.",
   "icons": [
@@ -31,6 +31,6 @@
   "scope": ".",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#FFF9F1",
+  "background_color": "#FFF9F1"
 }

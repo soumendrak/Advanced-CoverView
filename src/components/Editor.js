@@ -15,7 +15,7 @@ const defaultSettings = {
 	bgColor: "#949ee5",
 	pattern: "",
 	download: "PNG",
-	author: 'Your Name Here',
+	author: 'Soumendra Kumar Sahoo',
 	icon: null,
 	devIconOptions: [],
 	font: 'font-Anek',
@@ -63,20 +63,20 @@ class Editor extends React.Component {
 
 	render() {
 		return (
-			<div className="max-w-[1400px]  mx-auto">
+			<div className="max-w-[1400px]  mx-auto bg-cream-100 min-h-screen">
 				<Header />
 
 				<ImgProvider>
 					<div className="flex md:flex-row flex-col  ">
 
-						<div className="bg-white flex flex-col md:h-auto lg:h-100 md:w-4/12 lg:w-3/12">
+						<div className="bg-cream-50 flex flex-col md:h-auto lg:h-100 md:w-4/12 lg:w-3/12">
 
 							<div>
 								<div className="flex md:flex-row flex-col">
 
 
 
-									<div className="bg-white font-Inter  border-dashed md:border-r-2 border-gray-100 w-full p-4 ">
+									<div className="bg-cream-50 font-Karla  border-dashed md:border-r-2 border-peach-200 w-full p-4 ">
 										<div>
 
 											<div className="m-2 flex flex-col">
@@ -264,7 +264,7 @@ class Editor extends React.Component {
 											</div>
 
 											<button
-												className="flex items-center bg-gray-700 hover:bg-gray-800 text-white rounded-lg mt-6 text-base  p-1 px-4 mx-auto border"
+												className="flex items-center bg-berry-900 hover:bg-berry-800 text-cream-100 rounded-full mt-6 text-base font-bold p-1.5 px-5 mx-auto shadow-warm btn-squish"
 												onClick={this.handleReset}>
 												<svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white mr-2 " fill="currentColor" viewBox="0 0 24 24" ><path d="M12 16c1.671 0 3-1.331 3-3s-1.329-3-3-3-3 1.331-3 3 1.329 3 3 3z"></path><path d="M20.817 11.186a8.94 8.94 0 0 0-1.355-3.219 9.053 9.053 0 0 0-2.43-2.43 8.95 8.95 0 0 0-3.219-1.355 9.028 9.028 0 0 0-1.838-.18V2L8 5l3.975 3V6.002c.484-.002.968.044 1.435.14a6.961 6.961 0 0 1 2.502 1.053 7.005 7.005 0 0 1 1.892 1.892A6.967 6.967 0 0 1 19 13a7.032 7.032 0 0 1-.55 2.725 7.11 7.11 0 0 1-.644 1.188 7.2 7.2 0 0 1-.858 1.039 7.028 7.028 0 0 1-3.536 1.907 7.13 7.13 0 0 1-2.822 0 6.961 6.961 0 0 1-2.503-1.054 7.002 7.002 0 0 1-1.89-1.89A6.996 6.996 0 0 1 5 13H3a9.02 9.02 0 0 0 1.539 5.034 9.096 9.096 0 0 0 2.428 2.428A8.95 8.95 0 0 0 12 22a9.09 9.09 0 0 0 1.814-.183 9.014 9.014 0 0 0 3.218-1.355 8.886 8.886 0 0 0 1.331-1.099 9.228 9.228 0 0 0 1.1-1.332A8.952 8.952 0 0 0 21 13a9.09 9.09 0 0 0-.183-1.814z"></path></svg>
 												<span className="font-Inter">Reset All</span>
@@ -293,11 +293,11 @@ class Editor extends React.Component {
 
 						{/* themes section */}
 
-						<div className="md:w-48 lg:w-60 px-4 md:border-dashed md:border-l-2 border-gray-100 bg-white">
+						<div className="md:w-48 lg:w-60 px-4 md:border-dashed md:border-l-2 border-peach-200 bg-cream-50">
 							<div className="h-99 w-full flex flex-col">
 
 								<div className="flex items-center">
-									<h2 className="text-lg pl-2 font-inter font-semibold">Themes</h2>
+									<h2 className="text-lg pl-2 font-Fraunces font-semibold">Themes</h2>
 									<div className="ml-auto mr-1 p-2">
 										<RandomTheme onThemeChange={this.getRandomTheme} />
 
@@ -308,7 +308,7 @@ class Editor extends React.Component {
 
 									{
 										THEMES.map(themePlaceholder => (
-											<div className={`${themePlaceholder.label === this.state.theme ? 'border-blue-400 border-2' : ''}`} key={themePlaceholder.label}>
+											<div className={`rounded ${themePlaceholder.label === this.state.theme ? 'border-straw-500 border-2' : ''}`} key={themePlaceholder.label}>
 
 
 												<img src={themePlaceholder.preview} alt={themePlaceholder.label}

@@ -1,0 +1,10 @@
+#:schema https://conductor.build/schemas/settings.repo.schema.json
+
+# Conductor configuration for CoverView: a blog cover image generator
+# Built with Vite + React, uses npm for package management
+
+[scripts]
+setup = "npm install"
+run = "npm run dev"
+run_mode = "dev-server"
+archive = "rm -rf node_modules build .next dist"

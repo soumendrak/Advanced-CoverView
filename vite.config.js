@@ -21,7 +21,7 @@ export default defineConfig({
   },
   server: {
     // Match the port Create React App used so existing tooling/docs still apply.
-    port: 3000,
+    port: 5173,
     open: true,
   },
   build: {
