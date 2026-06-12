@@ -3,11 +3,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700&display=swap?crossorigin=anonymous');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400..800;1,400..700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --ink: #33151B;
+    --paper: #FFF9F1;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--paper);
+    color: var(--ink);
+}
+
+::selection {
+    background: #E8475F;
+    color: #FFF9F1;
+}
 
 .h-100{
     height:36rem;
@@ -40,4 +60,141 @@ Track
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background:  #b3b3ff;
+}
+
+/* ---------------------------------------------------------------------------
+   Landing-page craft: grain, reveals, marquees, tape & ghost type
+--------------------------------------------------------------------------- */
+
+/* Fine paper grain laid over the whole landing page */
+.grain {
+    position: relative;
+}
+
+.grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+}
+
+/* Scroll-triggered reveals (toggled by IntersectionObserver in Home.js) */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px) scale(0.985);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Seamless marquee: track holds two copies of the content */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    min-width: 200%;
+}
+
+.marquee-paused:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+.marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* Washi tape strips for pinned screenshots */
+.tape {
+    position: absolute;
+    width: 7rem;
+    height: 1.9rem;
+    background: linear-gradient(100deg, rgba(255, 197, 156, 0.92), rgba(255, 167, 108, 0.88));
+    box-shadow: 0 2px 6px rgba(93, 35, 41, 0.18);
+    border-left: 2px dashed rgba(255, 249, 241, 0.65);
+    border-right: 2px dashed rgba(255, 249, 241, 0.65);
+    opacity: 0.95;
+}
+
+.tape-straw {
+    background: linear-gradient(100deg, rgba(255, 154, 169, 0.92), rgba(232, 71, 95, 0.82));
+}
+
+/* Giant outlined ghost word floating behind content */
+.ghost-word {
+    -webkit-text-stroke: 2px rgba(93, 48, 56, 0.12);
+    color: transparent;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Squishy sticker buttons */
+.btn-squish {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.btn-squish:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+.btn-squish:active {
+    transform: translateY(1px) scale(0.97);
+}
+
+/* Shine sweep across the final CTA */
+.btn-shine {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.btn-shine::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    bottom: -40%;
+    left: -75%;
+    width: 45%;
+    background: linear-gradient(105deg, transparent, rgba(255, 249, 241, 0.55), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.7s ease;
+    z-index: 1;
+}
+
+.btn-shine:hover::before {
+    left: 130%;
+}
+
+/* Motion is a garnish, never a requirement */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .animate-bob,
+    .animate-bob-slow,
+    .animate-bob-slower,
+    .animate-marquee,
+    .animate-marquee-slow,
+    .animate-drift,
+    .animate-drift-slow,
+    .animate-sway,
+    .animate-pop-in {
+        animation: none;
+    }
 }

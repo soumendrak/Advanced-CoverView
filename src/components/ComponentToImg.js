@@ -98,7 +98,7 @@ const ComponentToImg = (props) => {
 			<div ref={componentRef}>{props.children}</div>
 			<div className="flex gap-2 m-4">
 				<button
-					className="border p-2 bg-gray-700 hover:bg-gray-800 flex items-center text-white text-xl rounded-lg px-4"
+					className="p-2 bg-straw-600 hover:bg-straw-500 flex items-center text-cream-50 font-Karla font-bold text-xl rounded-full px-5 shadow-pop btn-squish"
 					onClick={() => downloadImage()}>
 					<span>
 						{
@@ -113,7 +113,7 @@ const ComponentToImg = (props) => {
 
 				{copySupported && (
 					<button
-						className={`border p-2 flex items-center text-white text-xl rounded-lg px-4 ${copied ? 'bg-green-600 hover:bg-green-700' : copyError ? 'bg-red-600 hover:bg-red-700' : 'bg-gray-700 hover:bg-gray-800'}`}
+						className={`p-2 flex items-center text-cream-50 font-Karla font-bold text-xl rounded-full px-5 shadow-warm btn-squish ${copied ? 'bg-leaf-500 hover:bg-leaf-600' : copyError ? 'bg-straw-700 hover:bg-straw-600' : 'bg-berry-900 hover:bg-berry-800'}`}
 						onClick={() => copyToClipboard()}>
 						<span>
 							{

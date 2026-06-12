@@ -8,10 +8,6 @@ const WallOfLove = () => {
         script.setAttribute('type', 'text/javascript');
         script.setAttribute('src', 'https://widget.senja.io/js/iframeResizer.min.js');
 
-        // window.iFrameResize(
-        //     { log: false, checkOrigin: false },
-        //     '#senja-frame-902012ea');
-
         let frame = document.getElementById('senja-frame-902012ea');
         frame.setAttribute('src', "https://widget.senja.io/widget/902012ea-9b49-433a-96df-5cb43fd9a648");
         document.body.appendChild(script);
@@ -20,16 +16,16 @@ const WallOfLove = () => {
 
 
     return (
-        <div className='md:h-[700px] lg:h-[800px] h-screen w-full'>
+        <div className='md:h-[640px] lg:h-[720px] h-[85vh] w-full'>
             <iframe id="senja-frame-902012ea"
                 title="wall of love"
                 src=""
                 data-src="https://widget.senja.io/widget/902012ea-9b49-433a-96df-5cb43fd9a648"
                 frameBorder="0"
-                scrolling="no"
+                scrolling="yes"
                 width="100%"
                 height="100%"
-                className="md:w-11/12 lg:w-9/12  h-full py-4 px-6 mx-auto"
+                className="w-full h-full py-2 px-2 md:px-4 mx-auto"
             >
             </iframe>
 
