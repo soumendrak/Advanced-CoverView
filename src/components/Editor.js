@@ -7,12 +7,16 @@ import { ImgProvider } from '../utils/ImgContext'
 import Header from "./Header";
 
 
-import { THEMES, PLATFORMS } from "../utils/constants";
+import { THEMES, PLATFORMS, GRADIENT_PRESETS } from "../utils/constants";
 import { DOWNLOAD_FORMATS } from "../utils/imageExporter";
 
 const defaultSettings = {
 	title: "Your Title Goes Here",
 	bgColor: "#949ee5",
+	bgType: "solid",
+	gradientFrom: "#667eea",
+	gradientTo: "#764ba2",
+	gradientAngle: 135,
 	pattern: "",
 	download: "PNG",
 	author: 'Soumendra Kumar Sahoo',
@@ -47,7 +51,7 @@ class Editor extends React.Component {
 	};
 
 	getRandomTheme = (theme, Pattern) => {
-		this.setState({ bgColor: theme.bgColor, borderColor: theme.bdColor, pattern: Pattern });
+		this.setState({ bgColor: theme.bgColor, bgType: 'solid', borderColor: theme.bdColor, pattern: Pattern });
 	}
 
 	formatOptionLabel = ({ value, label }) => (
@@ -150,7 +154,7 @@ class Editor extends React.Component {
 														title="Click to toggle color presets"
 													>
 														<input type="color" value={this.state.bgColor}
-															onChange={(e) => this.setState({ bgColor: e.target.value })}
+															onChange={(e) => this.setState({ bgColor: e.target.value, bgType: 'solid' })}
 															onClick={(e) => e.stopPropagation()}
 															className="h-8 w-10 rounded cursor-pointer"
 														/>
@@ -171,12 +175,62 @@ class Editor extends React.Component {
 													].map((color) => (
 														<button
 															key={color}
-															onClick={() => this.setState({ bgColor: color })}
-															className={`w-6 h-6 rounded cursor-pointer border-2 hover:scale-110 transition-transform ${this.state.bgColor === color ? 'border-gray-800 ring-1 ring-offset-1 ring-gray-400' : 'border-gray-200'}`}
+															onClick={() => this.setState({ bgColor: color, bgType: 'solid' })}
+															className={`w-6 h-6 rounded cursor-pointer border-2 hover:scale-110 transition-transform ${this.state.bgType === 'solid' && this.state.bgColor === color ? 'border-gray-800 ring-1 ring-offset-1 ring-gray-400' : 'border-gray-200'}`}
 															style={{ backgroundColor: color }}
 															title={color}
 														/>
 													))}
+													{GRADIENT_PRESETS.map(({ from, to }) => (
+														<button
+															key={from + to}
+															onClick={() => this.setState({ bgType: this.state.bgType === 'radial' ? 'radial' : 'linear', gradientFrom: from, gradientTo: to })}
+															className={`w-6 h-6 rounded cursor-pointer border-2 hover:scale-110 transition-transform ${this.state.bgType !== 'solid' && this.state.gradientFrom === from && this.state.gradientTo === to ? 'border-gray-800 ring-1 ring-offset-1 ring-gray-400' : 'border-gray-200'}`}
+															style={{ backgroundImage: `linear-gradient(135deg, ${from}, ${to})` }}
+															title={`Gradient ${from} → ${to}`}
+														/>
+													))}
+												</div>
+											)}
+
+											<div className="flex items-center">
+												<div className="flex flex-col m-2 w-1/2">
+													<span className="font-medium text-sm pb-1">Background</span>
+													<select
+														aria-label="Background type"
+														value={this.state.bgType}
+														onChange={(e) => this.setState({ bgType: e.target.value })}
+														className="focus:outline-none text-gray-700 text-sm p-2 rounded border">
+														<option value="solid">solid</option>
+														<option value="linear">linear gradient</option>
+														<option value="radial">radial gradient</option>
+													</select>
+												</div>
+												{this.state.bgType !== 'solid' && (
+													<div className="flex flex-col m-2 w-1/2">
+														<span className="font-medium text-sm pb-1">Gradient</span>
+														<div className="border rounded flex items-center gap-1 p-1">
+															<input type="color" aria-label="Gradient start color" value={this.state.gradientFrom}
+																onChange={(e) => this.setState({ gradientFrom: e.target.value })}
+																className="h-8 w-10 rounded cursor-pointer"
+															/>
+															<input type="color" aria-label="Gradient end color" value={this.state.gradientTo}
+																onChange={(e) => this.setState({ gradientTo: e.target.value })}
+																className="h-8 w-10 rounded cursor-pointer"
+															/>
+														</div>
+													</div>
+												)}
+											</div>
+
+											{this.state.bgType === 'linear' && (
+												<div className="flex flex-col m-2">
+													<span className="font-medium text-sm pb-1">Angle: {this.state.gradientAngle}°</span>
+													<input type="range" aria-label="Gradient angle" min="0" max="360"
+														value={this.state.gradientAngle}
+														onChange={(e) => this.setState({ gradientAngle: parseInt(e.target.value, 10) })}
+														className="w-full cursor-pointer accent-berry-900"
+													/>
 												</div>
 											)}
 

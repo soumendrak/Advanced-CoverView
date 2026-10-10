@@ -1,15 +1,16 @@
 import React from 'react';
+import { getBackgroundStyle } from '../../utils/constants';
 
 
 const ModernTheme = ({ config }) => {
 
-    const { title, bgColor, pattern, author, icon, font, customIcon } = config;
+    const { title, pattern, author, icon, font, customIcon } = config;
 
     return (
         <div className="w-full h-full bg-white ">
             <div className=" overflow-y-hidden w-full h-full flex  items-center">
                 <div className={`  h-full w-full p-4 text-gray-800 flex  items-center ${pattern} `}
-                    style={{ backgroundColor: bgColor }}
+                    style={getBackgroundStyle(config)}
                 >
 
                     {

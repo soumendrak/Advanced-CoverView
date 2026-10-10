@@ -1,13 +1,14 @@
 import React from 'react';
+import { getBackgroundStyle } from '../../utils/constants';
 
 
 const BasicTheme = ({ config }) => {
-    const { title, bgColor, pattern, author, icon, font, customIcon } = config;
+    const { title, pattern, author, icon, font, customIcon } = config;
 
     return (
         <div className=" bg-white w-full h-full ">
             <div className={`overflow-y-hidden flex  text-gray-800 items-center h-full ${pattern} `}
-                style={{ backgroundColor: bgColor }}
+                style={getBackgroundStyle(config)}
             >
 
                 <div className={`${font} bg-white md:w-10/12  m-auto flex flex-col pt-12 rounded-xl`}>

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import { getBackgroundStyle } from '../../utils/constants';
 import { ImgContext } from '../../utils/ImgContext';
 import UnsplashSearch from '../UnsplashSearch';
 
 const BackgroundTheme = ({ config }) => {
-    const { title, author, font, icon, customIcon, bgColor } = config;
+    const { title, author, font, icon, customIcon } = config;
     const { unsplashImage, setUnsplashImage } = useContext(ImgContext);
 
 
@@ -12,7 +13,7 @@ const BackgroundTheme = ({ config }) => {
 
 
             <div className={` overflow-y-hidden flex flex-col`}
-                style={{ backgroundColor: bgColor }}
+                style={getBackgroundStyle(config)}
             >
 
                 <div className="flex flex-row  items-center bg-white  justify-center ">

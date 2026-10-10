@@ -55,3 +55,24 @@ export const PLATFORMS = [
     { name: 'pinterest', label: 'Pinterest', width: 1000, height: 1500 },
     { name: 'custom', label: 'Custom', width: 1200, height: 630 },
 ]
+
+export const GRADIENT_PRESETS = [
+    { from: '#667eea', to: '#764ba2' },
+    { from: '#f093fb', to: '#f5576c' },
+    { from: '#4facfe', to: '#00f2fe' },
+    { from: '#43e97b', to: '#38f9d7' },
+    { from: '#fa709a', to: '#fee140' },
+    { from: '#30cfd0', to: '#330867' },
+    { from: '#ff9a9e', to: '#fecfef' },
+    { from: '#f6d365', to: '#fda085' },
+]
+
+// Inline style for a cover's background. Gradients are exposed as the
+// --cover-gradient custom property so patterns.css can layer a pattern over them.
+export const getBackgroundStyle = ({ bgColor, bgType, gradientFrom, gradientTo, gradientAngle, pattern }) => {
+    if (bgType !== 'linear' && bgType !== 'radial') return { backgroundColor: bgColor };
+    const gradient = bgType === 'radial'
+        ? `radial-gradient(circle, ${gradientFrom}, ${gradientTo})`
+        : `linear-gradient(${gradientAngle}deg, ${gradientFrom}, ${gradientTo})`;
+    return { backgroundColor: gradientFrom, '--cover-gradient': gradient, backgroundImage: pattern ? undefined : gradient };
+}
