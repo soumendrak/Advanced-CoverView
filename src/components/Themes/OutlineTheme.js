@@ -1,13 +1,14 @@
 import React from 'react';
+import { getBackgroundStyle } from '../../utils/constants';
 const OutlineTheme = ({ config }) => {
-    const { title, bgColor, author, icon, font, customIcon } = config;
+    const { title, author, icon, font, customIcon } = config;
 
     return (
         <div className="w-full h-full bg-white ">
 
 
             <div className={`overflow-y-hidden flex flex-col text-gray-800 px-10 h-full`}
-                style={{ backgroundColor: bgColor }}
+                style={getBackgroundStyle(config)}
             >
 
 

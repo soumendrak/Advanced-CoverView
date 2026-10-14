@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { getBackgroundStyle } from '../../utils/constants';
 
 const MobileMockupTheme = ({ config }) => {
-    const { bgColor, title, font } = config;
+    const { title, font } = config;
 
     const [image, setImage] = useState()
 
@@ -10,7 +11,7 @@ const MobileMockupTheme = ({ config }) => {
 
 
             <div className={`overflow-y-hidden flex flex-row px-10 items-center w-full h-full justify-center pt-4`}
-                style={{ backgroundColor: bgColor }}
+                style={getBackgroundStyle(config)}
             >
 
 

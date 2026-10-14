@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { getBackgroundStyle } from '../../utils/constants';
 
 const PreviewTheme = ({ config }) => {
-    const { bgColor, title, font } = config;
+    const { title, font } = config;
 
     const [image, setImage] = useState()
 
@@ -10,7 +11,7 @@ const PreviewTheme = ({ config }) => {
 
 
             <div className={`overflow-y-hidden flex flex-col px-4 pt-4 w-full h-full`}
-                style={{ backgroundColor: bgColor }}
+                style={getBackgroundStyle(config)}
             >
 
                 <h1 className={`${font} text-2xl md:text-3xl p-10 text-white font-bold text-center`}>{title}</h1>

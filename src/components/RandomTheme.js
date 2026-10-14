@@ -94,7 +94,7 @@ class RandomTheme extends React.Component {
             }
 
         ];
-        const patterns = ['graph-paper', 'gigsaw', '', 'hideout', 'dots', '', 'falling-triangles', 'circuit-board', '',
+        const patterns = ['graph-paper', 'jigsaw', '', 'hideout', 'dots', '', 'falling-triangles', 'circuit-board', '',
             'temple', 'anchors', '', 'brickwall', 'wiggle', 'overlapping-circles', '', 'tic-tac-toe', 'leaf', '', 'bubbles', 'squares', ''];
         const indexOfColors = Math.floor(Math.random() * colorThemes.length);
         const theme = colorThemes[indexOfColors];

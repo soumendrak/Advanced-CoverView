@@ -55,3 +55,32 @@ export const PLATFORMS = [
     { name: 'pinterest', label: 'Pinterest', width: 1000, height: 1500 },
     { name: 'custom', label: 'Custom', width: 1200, height: 630 },
 ]
+
+export const GRADIENT_PRESETS = [
+    { from: '#667eea', to: '#764ba2' },
+    { from: '#f093fb', to: '#f5576c' },
+    { from: '#4facfe', to: '#00f2fe' },
+    { from: '#43e97b', to: '#38f9d7' },
+    { from: '#fa709a', to: '#fee140' },
+    { from: '#30cfd0', to: '#330867' },
+    { from: '#ff9a9e', to: '#fecfef' },
+    { from: '#f6d365', to: '#fda085' },
+]
+
+// Pattern classes in patterns.css that layer var(--cover-gradient) under the pattern.
+export const GRADIENT_PATTERN_CLASSES = new Set([
+    'graph-paper', 'jigsaw', 'hideout', 'dots', 'falling-triangles', 'circuit-board', 'temple', 'anchors',
+    'brickwall', 'overlapping-circles', 'wiggle', 'tic-tac-toe', 'leaf', 'bubbles', 'squares', 'explorer',
+]);
+
+// Inline style for a cover's background. Gradients are exposed as the
+// --cover-gradient custom property so patterns.css can layer a pattern over them.
+// Pass { appliesPattern: true } only from elements that also carry the pattern
+// class; otherwise the inline gradient is kept so it is not lost.
+export const getBackgroundStyle = ({ bgColor, bgType, gradientFrom, gradientTo, gradientAngle, pattern }, { appliesPattern = false } = {}) => {
+    if (bgType !== 'linear' && bgType !== 'radial') return { backgroundColor: bgColor };
+    const gradient = bgType === 'radial'
+        ? `radial-gradient(circle, ${gradientFrom}, ${gradientTo})`
+        : `linear-gradient(${gradientAngle}deg, ${gradientFrom}, ${gradientTo})`;
+    return { backgroundColor: gradientFrom, '--cover-gradient': gradient, backgroundImage: appliesPattern && GRADIENT_PATTERN_CLASSES.has(pattern) ? undefined : gradient };
+}
