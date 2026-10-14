@@ -10,7 +10,7 @@ const ModernTheme = ({ config }) => {
         <div className="w-full h-full bg-white ">
             <div className=" overflow-y-hidden w-full h-full flex  items-center">
                 <div className={`  h-full w-full p-4 text-gray-800 flex  items-center ${pattern} `}
-                    style={getBackgroundStyle(config)}
+                    style={getBackgroundStyle(config, { appliesPattern: true })}
                 >
 
                     {

@@ -8,7 +8,7 @@ const BasicTheme = ({ config }) => {
     return (
         <div className=" bg-white w-full h-full ">
             <div className={`overflow-y-hidden flex  text-gray-800 items-center h-full ${pattern} `}
-                style={getBackgroundStyle(config)}
+                style={getBackgroundStyle(config, { appliesPattern: true })}
             >
 
                 <div className={`${font} bg-white md:w-10/12  m-auto flex flex-col pt-12 rounded-xl`}>

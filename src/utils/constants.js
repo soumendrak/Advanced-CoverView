@@ -69,10 +69,12 @@ export const GRADIENT_PRESETS = [
 
 // Inline style for a cover's background. Gradients are exposed as the
 // --cover-gradient custom property so patterns.css can layer a pattern over them.
-export const getBackgroundStyle = ({ bgColor, bgType, gradientFrom, gradientTo, gradientAngle, pattern }) => {
+// Pass { appliesPattern: true } only from elements that also carry the pattern
+// class; otherwise the inline gradient is kept so it is not lost.
+export const getBackgroundStyle = ({ bgColor, bgType, gradientFrom, gradientTo, gradientAngle, pattern }, { appliesPattern = false } = {}) => {
     if (bgType !== 'linear' && bgType !== 'radial') return { backgroundColor: bgColor };
     const gradient = bgType === 'radial'
         ? `radial-gradient(circle, ${gradientFrom}, ${gradientTo})`
         : `linear-gradient(${gradientAngle}deg, ${gradientFrom}, ${gradientTo})`;
-    return { backgroundColor: gradientFrom, '--cover-gradient': gradient, backgroundImage: pattern ? undefined : gradient };
+    return { backgroundColor: gradientFrom, '--cover-gradient': gradient, backgroundImage: pattern && appliesPattern ? undefined : gradient };
 }
