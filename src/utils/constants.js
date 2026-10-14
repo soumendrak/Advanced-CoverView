@@ -67,6 +67,12 @@ export const GRADIENT_PRESETS = [
     { from: '#f6d365', to: '#fda085' },
 ]
 
+// Pattern classes in patterns.css that layer var(--cover-gradient) under the pattern.
+export const GRADIENT_PATTERN_CLASSES = new Set([
+    'graph-paper', 'jigsaw', 'hideout', 'dots', 'falling-triangles', 'circuit-board', 'temple', 'anchors',
+    'brickwall', 'overlapping-circles', 'wiggle', 'tic-tac-toe', 'leaf', 'bubbles', 'squares', 'explorer',
+]);
+
 // Inline style for a cover's background. Gradients are exposed as the
 // --cover-gradient custom property so patterns.css can layer a pattern over them.
 // Pass { appliesPattern: true } only from elements that also carry the pattern
@@ -76,5 +82,5 @@ export const getBackgroundStyle = ({ bgColor, bgType, gradientFrom, gradientTo, 
     const gradient = bgType === 'radial'
         ? `radial-gradient(circle, ${gradientFrom}, ${gradientTo})`
         : `linear-gradient(${gradientAngle}deg, ${gradientFrom}, ${gradientTo})`;
-    return { backgroundColor: gradientFrom, '--cover-gradient': gradient, backgroundImage: pattern && appliesPattern ? undefined : gradient };
+    return { backgroundColor: gradientFrom, '--cover-gradient': gradient, backgroundImage: appliesPattern && GRADIENT_PATTERN_CLASSES.has(pattern) ? undefined : gradient };
 }
